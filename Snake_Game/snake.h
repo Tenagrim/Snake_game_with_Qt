@@ -7,6 +7,7 @@ class Snake
 {
 public:
     Snake(Pos pos);
+    ~Snake();
     std::vector<Pos> body;
     void Step();
     void Turn(int direction);

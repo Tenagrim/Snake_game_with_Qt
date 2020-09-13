@@ -7,12 +7,16 @@ Snake::Snake(Pos pos)
     speed.y = -1;
     length = 1;
 }
+Snake::~Snake()
+{
+    //delete body;
+}
 void Snake::Step()
 {
     Pos tmp;
-    tmp = body[0];
-    body[0] = body[0] + speed;
-    for(int i = 1; i < length -1; i++)
+    tmp = body[0] + speed;
+    //body[0] = body[0] + speed;
+    for(int i = 0; i < length ; i++)
     {
         if(tmp != body[i])
             std::swap(tmp, body[i]);
@@ -66,7 +70,7 @@ void Snake::Grow(int count)
 {
     for(int i = 0; i < count; i++)
     {
-        body.push_back(body[length-1]);
+        body.push_back(Pos(body[length-1].x,body[length-1].y));
         length++;
     }
 }

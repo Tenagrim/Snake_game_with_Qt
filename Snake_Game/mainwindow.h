@@ -25,6 +25,7 @@ private:
     Ui::MainWindow *ui;
     QPaintWidget *wtg;
     Game *game;
+    Pos round;
     void Display();
     int block_size;
     int delay;

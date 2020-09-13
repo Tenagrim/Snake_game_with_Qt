@@ -13,6 +13,7 @@ public:
     void Control(int dir);
     void CheckCollision();
     void MakeFood();
+    void Restart();
     char    **field;
     Snake   *snake;
     Pos     food;

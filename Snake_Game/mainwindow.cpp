@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     game = new Game(30,30);
     wtg = new QPaintWidget(this);
     wtg->SetGame(game);
+    round = Pos(2,2);
     qDebug( " Info message");
     block_size = 15;
     delay = 100;
@@ -37,8 +38,11 @@ void MainWindow::timerEvent(QTimerEvent *e)
     {
         game->Control(direction);
         game->Step();
-        repaint();
+        update();
     }
+    else
+        game->Restart();
+
 }
 
 void MainWindow::Display()
@@ -51,7 +55,8 @@ void MainWindow::Display()
         for(int j = 0; j < game->height; j++)
         {
             QPainterPath path;
-            path.addRoundedRect(QRectF(j*block_size, i*block_size, block_size-1,block_size-1), 4, 4);
+            //path.addRoundedRect(QRectF(j*block_size, i*block_size, block_size-1,block_size-1), round.x, round.y);
+            path.addRect(QRectF(j*block_size, i*block_size, block_size,block_size));
             switch(game->field[i][j])
             {
                 case 0:
@@ -69,11 +74,11 @@ void MainWindow::Display()
     for(int i = 0; i < game->snake->GetLength(); i++)
     {
         QPainterPath path;
-        path.addRoundedRect(QRectF(game->snake->body[i].x *block_size, game->snake->body[i].y*block_size, block_size-1,block_size-1), 4, 4);
+        path.addRoundedRect(QRectF(game->snake->body[i].x *block_size, game->snake->body[i].y*block_size, block_size-1,block_size-1), round.x, round.y);
         qp.fillPath(path,Qt::gray);
     }
     QPainterPath path;
-    path.addRoundedRect(QRectF(game->food.x *block_size, game->food.y *block_size, block_size-1,block_size-1), 4, 4);
+    path.addRoundedRect(QRectF(game->food.x *block_size, game->food.y *block_size, block_size-1,block_size-1), round.x, round.y);
     qp.fillPath(path,Qt::red);
 }
 void MainWindow::keyPressEvent(QKeyEvent *e) {

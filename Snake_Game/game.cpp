@@ -22,6 +22,7 @@ Game::~Game()
 {
     for(int i = 0; i < height; i++)
         delete field[i];
+    delete snake;
 }
 void Game::Step()
 {
@@ -57,4 +58,11 @@ void Game::MakeFood()
             food.y = food.y + 1;
         }
     }
+}
+void Game::Restart()
+{
+    delete snake;
+    snake = new Snake(Pos(width/2, height/2));
+    endGame = false;
+    MakeFood();
 }
